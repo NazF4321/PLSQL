@@ -1,0 +1,98 @@
+SQL> CREATE TABLE suppliers
+  2  ( supplier_id number(10) not null,
+  3    supplier_name varchar2(50) not null,
+  4    city varchar2(50),
+  5    CONSTRAINT suppliers_pk PRIMARY KEY (supplier_id)
+  6  );
+
+Table created.
+
+SQL>
+SQL> INSERT INTO suppliers (supplier_id, supplier_name, city)
+  2  VALUES (5001, 'Microsoft', 'Chicago');
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO suppliers (supplier_id, supplier_name, city)
+  2  VALUES (5002, 'IBM', 'Chicago');
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO suppliers (supplier_id, supplier_name, city)
+  2  VALUES (5003, 'Red Hat', 'Detroit');
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO suppliers (supplier_id, supplier_name, city)
+  2  VALUES (5004, 'NVIDIA', 'New York');
+
+1 row created.
+
+SQL> UPDATE suppliers
+  2  SET city = 'San Francisco'
+  3  WHERE supplier_name = 'IBM';
+
+1 row updated.
+
+SQL> select * from suppliers;
+
+SUPPLIER_ID SUPPLIER_NAME
+----------- --------------------------------------------------
+CITY
+--------------------------------------------------
+       5001 Microsoft
+Chicago
+
+       5002 IBM
+San Francisco
+
+       5003 Red Hat
+Detroit
+
+
+SUPPLIER_ID SUPPLIER_NAME
+----------- --------------------------------------------------
+CITY
+--------------------------------------------------
+       5004 NVIDIA
+New York
+
+
+SQL> select supplier_id from suppliers;
+
+SUPPLIER_ID
+-----------
+       5001
+       5002
+       5003
+       5004
+
+SQL> select city from suppliers;
+
+CITY
+--------------------------------------------------
+Chicago
+San Francisco
+Detroit
+New York
+
+SQL> select supplier_name from suppliers;
+
+SUPPLIER_NAME
+--------------------------------------------------
+Microsoft
+IBM
+Red Hat
+NVIDIA
+
+SQL> select * from suppliers where supplier_id=5003;
+
+SUPPLIER_ID SUPPLIER_NAME
+----------- --------------------------------------------------
+CITY
+--------------------------------------------------
+       5003 Red Hat
+Detroit

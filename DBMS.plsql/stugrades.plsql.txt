@@ -1,0 +1,23 @@
+SQL> DECLARE
+  2  score Number;
+  3  Grade Char(1);
+  4  BEGIN
+  5  Score:=&Score;
+  6  IF Score >= 90 THEN
+  7   Grade := 'A';
+  8  ELSIF Score >= 70 THEN
+  9   Grade := 'B';
+ 10  ELSIF Score >= 60 THEN
+ 11   Grade := 'C';
+ 12  ELSIF Score >= 50 THEN
+ 13   Grade := 'D';
+ 14  ELSE
+ 15   Grade := 'E';
+ 16  END IF;
+ 17  dbms_output.Put_line('Your Grade is: ' ||Grade);
+ 18  END;
+ 19  /
+Enter value for score: 80
+old   5: Score:=&Score;
+new   5: Score:=80;
+Your Grade is: B

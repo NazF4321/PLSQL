@@ -1,0 +1,32 @@
+DECLARE
+	
+	num1 NUMBER;
+	num2 NUMBER;
+BEGIN
+	num1 := 1000;
+
+	num2 := 2000;
+
+	
+	dbms_output.Put_line('Before');
+
+	dbms_output.Put_line('num1 = '|| num1||' num2 = '|| num2);
+
+	-- swapping of numbers num1 and num2
+	num1 := num1 + num2;
+
+	num2 := num1 - num2;
+
+	num1 := num1 - num2;
+
+	-- print result after swapping
+	dbms_output.Put_line('After');
+
+	dbms_output.Put_line('num1 = '|| num1||' num2 = '|| num2);
+END;
+/
+OUTPUT:
+Before 
+num1 = 1000  num2 = 2000
+After 
+num1 = 2000  num2 = 1000

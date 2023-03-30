@@ -1,0 +1,29 @@
+SQL> set serveroutput on;
+SQL> declare
+  2
+  3  fac number :=1;
+  4
+  5
+  6  n number := &1;
+  7
+  8  begin
+  9
+ 10  while n > 0 loop
+ 11
+ 12  fac:=n*fac;
+ 13  n:=n-1;
+ 14  end loop;
+ 15
+ 16
+ 17  dbms_output.put_line(fac);
+ 18
+ 19
+ 20  end;
+ 21  /
+Enter value for 1: 5
+old   6: n number := &1;
+new   6: n number := 5;
+120
+
+PL/SQL procedure successfully completed.
+

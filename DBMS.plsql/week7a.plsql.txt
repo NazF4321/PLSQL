@@ -1,0 +1,28 @@
+declare
+	mid_range staff.salary%type;
+	eid staff.id%type:=&employee_id;
+	e_salary staff.salary%type;
+begin
+	select median(salary) into mid_range from staff;
+	select salary into e_salary from staff where id=eid;
+	if (e_salary>mid_range) then
+		update staff set salary=salary+(salary*0.08) where id=eid;
+		select salary into e_salary from staff where id=eid;
+		dbms_output.put_line('Employee with id = ' || eid || ' salary is increased by 8% i.e.,' || e_salary);
+	else
+		update staff set salary=mid_range where id=eid;
+		dbms_output.put_line('Employee with id = ' || eid || 
+			' salary is updated to mid_range(' || mid_range || ')');
+
+	end if;
+	commit;
+end;
+/
+
+Output:
+Enter value for employee_id: 109
+old   3:        eid staff.id%type:=&employee_id;
+new   3:        eid staff.id%type:=109;
+Employee with id = 109 salary is increased by 8% i.e.,19400
+
+PL/SQL procedure successfully completed.

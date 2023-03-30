@@ -1,0 +1,31 @@
+create or replace function operations(a in number,b in number)
+return varchar 
+is msg varchar(256);
+begin
+	msg:= ' of ' || a || ' and ' || b || ' is ';
+	dbms_output.put_line('sum' || msg || (a+b));
+	dbms_output.put_line('difference' || msg || (a-b));
+	dbms_output.put_line('multiplication' || msg || (a*b));
+	dbms_output.put_line('division' || msg || (a/b));
+	return 'OPERATIONS SUCCESSFULLY COMPLETED';
+	EXCEPTION
+		when ZERO_DIVIDE then dbms_output.put_line('Division by zero is not possible');
+		return 'ZERO DIVISION';
+		when others then dbms_output.put_line('Errors');
+		return 'INTERUPT OCCURED';
+end;
+/
+
+DECLARE
+	a number:=&a;
+	b number:=&b;
+	msg varchar(256);
+BEGIN
+	msg:=operations(a,b);
+	if(msg='INTERUPT OCCURED') then
+		dbms_output.put_line('Something went wrong!!!');
+	elsif(msg <> 'ZERO DIVISION') then
+		dbms_output.put_line(msg);
+	end if;
+END;
+/

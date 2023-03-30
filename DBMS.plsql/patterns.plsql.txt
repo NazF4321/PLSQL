@@ -1,0 +1,54 @@
+declare
+n number:=5;
+i number;
+j number;
+begin
+for i in reverse 1..n
+loop
+for j in 1..i
+loop
+dbms_output.put('*');
+end loop;
+dbms_output.new_line;
+end loop;
+end;
+/
+output:
+*****
+****
+***
+**
+*
+
+PL/SQL procedure successfully completed.
+
+
+
+SQL> declare
+  2  n number:=5;
+  3  i number;
+  4  j number;
+  5  k number;
+  6  begin
+  7  for i in 1..n
+  8  loop
+  9  for j in 1..n-i
+ 10  loop
+ 11  dbms_output.put(' ');
+ 12  end loop;
+ 13
+ 14  for k in 1..i
+ 15  loop
+ 16  dbms_output.put('*');
+ 17  end loop;
+ 18  dbms_output.new_line;
+ 19  end loop;
+ 20  end;
+ 21  /
+*
+**
+***
+****
+*****
+
+PL/SQL procedure successfully completed.

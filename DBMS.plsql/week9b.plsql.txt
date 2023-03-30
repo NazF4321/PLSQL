@@ -1,0 +1,52 @@
+DECLARE
+	e_id emp.empno%type:=&employee_id;
+	e_sal emp.sal%type;
+	e_incr emp.sal%type;
+	e_values number;
+	
+	function incr(e_id in number,e_incr out number) return number
+	 is e_salary emp.sal%type:=0;
+		begin
+			select sal into e_salary from emp where empno=e_id;
+			if(e_salary<=3000) then
+					e_salary:= e_salary*0.3;
+					e_incr:=30;
+			elsif(e_salary>3000 and e_salary<=6000) then
+					e_salary:= e_salary*0.2;
+					e_incr:=20;
+			else 
+				e_salary:= e_salary*0.1;
+				e_incr:=10;
+			end if;
+        return e_salary;
+	end;
+BEGIN
+	select sal into e_sal from emp where empno=e_id;
+	
+	dbms_output.put_line('Employee salary before incrementing ' || e_sal);
+	e_values:=incr(e_id,e_incr);
+	
+	update emp set sal=sal + e_values where empno=e_id;
+	
+	commit;
+	
+	select sal into e_sal from emp where empno=e_id;
+	
+	dbms_output.put_line('Employee salary after incrementing by '
+		|| e_incr || '% is ' || e_sal);
+	
+	EXCEPTION
+		when no_data_found then dbms_output.put_line('Employee data not found');
+		when others then dbms_output.put_line('ERROR');
+END;
+/
+
+Output:
+
+Enter value for employee_id: 7900
+old   2:        e_id emp.empno%type:=&employee_id;
+new   2:        e_id emp.empno%type:=7900;
+Employee salary before incrementing 950
+Employee salary after incrementing by 30% is 1235
+
+PL/SQL procedure successfully completed.

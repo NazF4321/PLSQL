@@ -1,0 +1,3 @@
+u20121A2951/svec#123@orcl
+
+set serveroutput on;

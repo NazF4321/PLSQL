@@ -1,0 +1,35 @@
+DECLARE
+
+low number(2);
+high number(2);
+n number(2);
+m number(2);
+c number(20);
+BEGIN
+dbms_output.put_line('Enter the lower and higher limit:');
+low:=&low;
+high:=&high;
+
+for n IN low.. high
+	loop
+	c:=0;
+	for m IN 1.. n
+		loop
+		if mod(n, m)=0 then
+			c:=c+1;
+			end if;
+			end loop;
+
+			if c<=2 then
+			dbms_output.put_line(n||'\n');
+			end if;
+		end loop;
+		
+END;
+
+Input: 
+Enter the lower and higher limit:1  10
+Output: 2
+        3
+        5
+        7 

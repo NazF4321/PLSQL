@@ -1,0 +1,27 @@
+declare 
+    grade char(1):=upper('&grade');
+    msg varchar(256);
+BEGIN
+    case 
+        when grade='A' then msg:='Excellent';
+        when grade='B' then msg:='Good';
+        when grade='C' then msg:='Not bad';
+        when grade='D' then msg:='Improve';
+        when grade='E' then msg:='Work hard';
+        when grade='F' then msg:='Better luck next time';
+        else msg:='Invalid grade';
+    end CASE;
+    DBMS_OUTPUT.PUT_LINE(upper(msg));
+END;
+/
+
+
+
+Output:
+
+Enter value for grade: a
+old   2:     grade char(1):=upper('&grade');
+new   2:     grade char(1):=upper('a');
+EXCELLENT
+
+PL/SQL procedure successfully completed.

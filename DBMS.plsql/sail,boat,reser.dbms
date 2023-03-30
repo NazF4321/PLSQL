@@ -1,0 +1,229 @@
+SQL> CREATE TABLE srolias
+  2    (
+  3        sid integer,
+  4        sname varchar(20),
+  5        rating integer,
+  6        age integer
+  7      );
+
+Table created.
+
+SQL> CREATE TABLE staob
+  2    (
+  3       bid integer,
+  4          bname varchar(20),
+  5          color varchar(20)
+  6      );
+
+Table created.
+
+SQL> CREATE TABLE sevreser
+  2   (
+  3          sid integer,
+  4          bid integer,
+  5          day1 date
+  6      );
+
+Table created.
+
+SQL> insert into srolias values(22,'dustin',7,45);
+
+1 row created.
+
+SQL> insert into srolias values(29,'brutus',1,33);
+
+1 row created.
+
+SQL> insert into srolias values(31,'lubber',79,55);
+
+1 row created.
+
+SQL> insert into srolias values(32,'andy',8,25);
+
+1 row created.
+
+SQL> insert into srolias values(58,'rusty',10,35);
+
+1 row created.
+
+
+
+SQL> insert into staob values(101,'interlake','blue');
+
+1 row created.
+
+SQL> insert into staob values(102,'interlake','red');
+
+1 row created.
+
+SQL> insert into staob values(103,'clipper','green');
+
+1 row created.
+
+SQL> insert into staob values(104,'marine','red');
+
+1 row created.
+
+
+SQL> insert into sevreser values(22,101,'17-may-2003');
+
+1 row created.
+
+SQL> insert into sevreser values(22,102,'2004-01-01');
+
+1 row created.
+
+SQL> insert into sevreser values(22,103,'2004-02-01');
+
+1 row created.
+
+SQL> insert into sevreser values(22,105,'2004-02-01');
+
+1 row created.
+
+SQL> insert into sevreser values(31,103,'2005-05-05');
+
+1 row created.
+
+SQL> insert into sevreser values(32,104,'2005-04-07');
+
+1 row created.
+
+
+Q1)Find the names of sailors who have reserved a red boat.
+A)SELECT s.sname 
+FROM sailors s 
+JOIN reserves r
+ON r.sid=s.sid join boats b
+ON r.bid=b.bid where b.color='red';
+
+Q2)Find the names of the Sailors who have reserved at least one boat.
+A)SELECT sname 
+FROM sailors 
+WHERE sid 
+IN (
+        SELECT sid 
+        FROM reserves 
+        GROUP BY sid
+    );
+	
+Q3)Compute increments for the ratings of persons who have sailed two different boats on the same day.
+A)SELECT s.sid, s.sname, COUNT(r.sid) c, s.rating+1 "rating" 
+FROM sailors s
+JOIN reserves r ON s.sid=r.sid GROUP BY day1
+HAVING c>1;
+
+SELECT * FROM sailors;
+
+Q4)Find the ages of sailors whose name begins and ends with B and has at least 3 characters.
+A)SELECT sname, age 
+FROM sailors 
+WHERE sname LIKE 'B%_%B';
+
+Q5)Find the names of sailors who have reserved a red and a
+green boat.
+A)SELECT s.sname, b.color, s.sid 
+FROM sailors s
+JOIN reserves r ON r.sid=s.sid 
+JOIN boats b ON r.bid=b.bid 
+AND b.color='red' 
+WHERE r.sid IN(
+                SELECT s.sid 
+                FROM sailors s
+                JOIN reserves r ON r.sid=s.sid 
+                JOIN boats b ON r.bid=b.bid 
+                WHERE b.color='green'
+               );
+
+Q6)Find the sids of all sailors who have reserved red boats but not green boats.
+A)SELECT s.sname, b.color, s.sid 
+FROM sailors s
+JOIN reserves r ON r.sid=s.sid 
+JOIN boats b ON r.bid=b.bid 
+AND b.color='red' 
+WHERE r.sid NOT IN(
+                SELECT s.sid 
+                FROM sailors s
+                JOIN reserves r ON r.sid=s.sid 
+                JOIN boats b ON r.bid=b.bid                                                                                  
+                WHERE b.color='green'
+                  );
+SELECT s.sname, b.color, s.sid 
+FROM sailors s
+JOIN reserves r ON r.sid=s.sid 
+JOIN boats b ON r.bid=b.bid 
+WHERE b.color='green';
+
+Q7)Find the sailors with the highest rating.
+A)SELECT sname, max(rating) 
+FROM sailors;
+
+Q8)Find the name of the oldest sailor.
+A)SELECT sname 
+FROM (
+        SELECT sname,max(age) 
+        FROM sailors
+      ) t1;
+	  
+Q9)Count the number of different sailor names.
+A)SELECT COUNT(*) 
+FROM (
+        SELECT sname 
+        FROM sailors 
+        GROUP BY sname
+      ) t1;
+	  
+Q10)Find the no. of sailors who is eligible to vote for each
+rating level.
+A)SELECT COUNT(sname), rating 
+FROM sailors 
+WHERE age>18 group by rating;
+
+
+
+
+create table abcd(
+                  emp_id int primary key,
+                  emp_name varchar2(30),
+                  dept_name varchar2(30),
+                  salary int);
+Result:
+				  
+SELECT * FROM [abcd]
+
+emp_id	emp_name	dept_name	salary
+1	naziya	csbs	80000
+2	vallusha	csbs	70000
+3	Feeza	csbs	60000
+4	vishnu	csse	40000
+5	varshith	csse	60000
+6	saki	csse	50000
+7	saki	ECE	50000
+8	uday	ECE	30000
+9	pravalika	ECE	20000
+
+				  
+---->select*from table where dept_name,salary in (select dept_name,max(salary from table name groupby dept))	
+
+
+
+
+
+
+create table dept(
+                  dept_id int primary key,
+                  dept_name varchar2(50),
+                  location varchar2(30));			  
+				  
+ 	  insert into dept values(1,'csbs','vidyanikethan');
+	  insert into dept values(2,'csbs','SVU');
+	  insert into dept values(3,'csSE','');
+	  insert into dept values(6,''CE,'svec');
+	  insert into dept values(6,'ES','svec');
+	  insert into dept values(6,'IT','vidyanikethan');
+	  
+----> select*from dept where dept_name not in (SELECT DISTINCT DEPT_NAME From abcd)
+	  
+----> select*from abcd E1 where salary>(SELECT avg(salary)
+                                    	From   abcd E2
+										where  E2.dept_name=E1.dept_name)

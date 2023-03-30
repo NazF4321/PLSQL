@@ -1,0 +1,42 @@
+SQL> SELECT 2_date('6-June-22')-2_date('4-June-22')
+  2  FROM   dual;
+SELECT 2_date('6-June-22')-2_date('4-June-22')
+        *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select sysdate
+  2  from dual;
+
+SYSDATE
+---------
+06-JUN-22
+
+SQL> select sysdate+12/24
+  2  from   dual;
+
+SYSDATE+1
+---------
+07-JUN-22
+
+SQL> select to_date('6-june-22')-to_date('4-june-22')
+  2  from dual;
+
+TO_DATE('6-JUNE-22')-TO_DATE('4-JUNE-22')
+-----------------------------------------
+                                        2
+
+SQL> SELECT  months_between('6-june-22','10-june-22')
+  2  FROM    dual;
+
+MONTHS_BETWEEN('6-JUNE-22','10-JUNE-22')
+----------------------------------------
+                              -.12903226
+
+SQL> SELECT next_day('6-june-22','Monday')
+  2  From   dual;
+
+NEXT_DAY(
+---------
+13-JUN-22
